@@ -1,0 +1,10 @@
+2
+2 2
+100 5 700
+101 5 300
+received order 10 100
+complete 101
+received order 11 100
+received order 12 101
+complete 100
+complete 101
