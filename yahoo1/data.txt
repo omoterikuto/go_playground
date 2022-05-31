@@ -1,0 +1,5 @@
+4 2
+Bookshelf 2
+Table 1
+TV 3
+chair 1
