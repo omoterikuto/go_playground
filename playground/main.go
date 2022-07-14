@@ -1,54 +1,35 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
+	"reflect"
 )
 
-var N int
-var A []int
+type ComplexityRoot struct {
+	Account struct {
+		Belong   func(childComplexity int) int
+		Birthday func(childComplexity int) int
+	}
+}
 
 func main() {
-	file := "data.txt"
-	fp, err := os.Open(file)
-	if err != nil {
-		panic(err)
+	cr := ComplexityRoot{}
+
+	cr.Account.Belong = func(childComplexity int) int {
+		return childComplexity
 	}
-	defer fp.Close()
+	//cr.Account.Birthday = func(childComplexity int) int {
+	//	return childComplexity
+	//}
 
-	scanner := bufio.NewScanner(fp)
+	crValue := reflect.ValueOf(cr) // Account{}
 
-	scanner.Scan()
-
-	nn, _ := strconv.ParseInt(scanner.Text(), 10, 64)
-	N = int(nn)
-
-	scanner.Scan()
-	line2 := strings.Split(scanner.Text(), " ")
-	for _, v := range line2 {
-		a, _ := strconv.ParseInt(v, 10, 64)
-		A = append(A, int(a))
-	}
-
-	var count int
-	for i := 0; i < N; i++ {
-		v := make([]int, 3)
-		v[0] = A[i]
-		for j := i + 1; j < N; j++ {
-			if v[0] == A[j] {
-				continue
-			}
-			v[1] = A[j]
-			for k := j + 1; k < N; k++ {
-				if v[0] == A[k] || v[1] == A[k] {
-					continue
-				}
-				count++
+	for i := 0; i < crValue.NumField(); i++ {
+		resolver := crValue.Field(i) // [Belong, Birthday]
+		for j := 0; j < resolver.NumField(); j++ {
+			if resolver.Field(j).IsNil() {
+				fmt.Println("not implement")
 			}
 		}
 	}
-	fmt.Println(count)
 }
