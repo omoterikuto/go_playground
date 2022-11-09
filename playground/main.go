@@ -1,35 +1,43 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"reflect"
+	"os"
+	"strconv"
+	"strings"
 )
 
-type ComplexityRoot struct {
-	Account struct {
-		Belong   func(childComplexity int) int
-		Birthday func(childComplexity int) int
-	}
-}
-
 func main() {
-	cr := ComplexityRoot{}
+	sc := bufio.NewScanner(os.Stdin)
 
-	cr.Account.Belong = func(childComplexity int) int {
-		return childComplexity
+	sc.Scan()
+	a := strings.Split(sc.Text(), " ")
+	//n, _ := strconv.Atoi(a[0])
+	leftNum, _ := strconv.Atoi(a[1])
+
+	sc.Scan()
+	strSubTotal := strings.Split(sc.Text(), " ")
+
+	sub := make([]int, len(strSubTotal))
+	for i, s := range strSubTotal {
+		b, _ := strconv.Atoi(s)
+		sub[i] = b
 	}
-	//cr.Account.Birthday = func(childComplexity int) int {
-	//	return childComplexity
-	//}
 
-	crValue := reflect.ValueOf(cr) // Account{}
+	ans := make([]int, len(sub))
+	ans[0] = leftNum
 
-	for i := 0; i < crValue.NumField(); i++ {
-		resolver := crValue.Field(i) // [Belong, Birthday]
-		for j := 0; j < resolver.NumField(); j++ {
-			if resolver.Field(j).IsNil() {
-				fmt.Println("not implement")
-			}
+	for i := 0; i < len(sub)-1; i++ {
+		ans[i+1] = sub[i] - ans[i]
+		if i != 0 {
+			ans[i+1] -= ans[i-1]
+		}
+	}
+	for i, a := range ans {
+		fmt.Printf("%d", a)
+		if i != len(ans) {
+			fmt.Printf(" ")
 		}
 	}
 }
