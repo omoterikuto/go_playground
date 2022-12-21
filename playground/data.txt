@@ -5,3 +5,9 @@ var1
 var2 goroutineで並行処理
 23:48:24.670503 start
 23:49:18.368502 done
+
+var3 Loop交換
+00:05:18.653928 start
+00:05:25.038116 done
+
+
