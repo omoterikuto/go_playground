@@ -1,43 +1,70 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
+	"log"
+	"math/rand"
+	"sync"
 )
 
 func main() {
-	sc := bufio.NewScanner(os.Stdin)
+	log.SetFlags(log.Lmicroseconds)
 
-	sc.Scan()
-	a := strings.Split(sc.Text(), " ")
-	//n, _ := strconv.Atoi(a[0])
-	leftNum, _ := strconv.Atoi(a[1])
+	a1 := makeMatrix()
+	b1 := makeMatrix()
+	a2 := makeMatrix()
+	b2 := makeMatrix()
+	a3 := makeMatrix()
+	b3 := makeMatrix()
+	a4 := makeMatrix()
+	b4 := makeMatrix()
 
-	sc.Scan()
-	strSubTotal := strings.Split(sc.Text(), " ")
+	var wg sync.WaitGroup
+	wg.Add(4)
+	b1t := transpose(b1)
+	b2t := transpose(b2)
+	b3t := transpose(b3)
+	b4t := transpose(b4)
+	log.Println("start")
+	go calc(a1, b1t, &wg)
+	go calc(a2, b2t, &wg)
+	go calc(a3, b3t, &wg)
+	go calc(a4, b4t, &wg)
+	wg.Wait()
+	log.Println("done")
+}
 
-	sub := make([]int, len(strSubTotal))
-	for i, s := range strSubTotal {
-		b, _ := strconv.Atoi(s)
-		sub[i] = b
-	}
+const n = 2048
 
-	ans := make([]int, len(sub))
-	ans[0] = leftNum
-
-	for i := 0; i < len(sub)-1; i++ {
-		ans[i+1] = sub[i] - ans[i]
-		if i != 0 {
-			ans[i+1] -= ans[i-1]
+func calc(a1, b1 [n][n]int, wg *sync.WaitGroup) {
+	var p1 [n][n]int
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			for k := 0; k < n; k++ {
+				p1[i][j] += a1[i][k] * b1[k][j]
+			}
 		}
 	}
-	for i, a := range ans {
-		fmt.Printf("%d", a)
-		if i != len(ans) {
-			fmt.Printf(" ")
+	wg.Done()
+	return
+}
+
+func makeMatrix() [n][n]int {
+	var r [n][n]int
+
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			r[i][j] = rand.Intn(100)
 		}
 	}
+	return r
+}
+
+func transpose(p [n][n]int) [n][n]int {
+	var r [n][n]int
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			r[i][j] = p[i][j]
+		}
+	}
+	return r
 }
