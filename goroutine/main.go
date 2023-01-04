@@ -37,21 +37,15 @@ func main() {
 }
 
 const n = 2048
-const bs = 256
 
 // 行列を計算する
 func calc(a, b [n][n]int, wg *sync.WaitGroup) {
 	var p [n][n]int
-	for i := 0; i < n; i += bs {
-		for k := 0; k < n; k += bs { // kループとjループを入れ替える
-			for j := 0; j < n; j += bs {
-				for bi := i; bi < i+bs; bi++ {
-					for bk := k; bk < k+bs; bk++ { // kループとjループを入れ替える
-						for bj := j; bj < j+bs; bj++ {
-							p[bi][bj] += a[bi][bk] * b[bk][bj]
-						}
-					}
-				}
+	for i := 0; i < n; i++ {
+		for k := 0; k < n; k++ { // kループとjループを入れ替える
+			for j := 0; j < n; j++ {
+				p[i][j] += a[i][k] * b[k][j]
+
 			}
 		}
 	}
