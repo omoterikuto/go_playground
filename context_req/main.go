@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -13,8 +14,8 @@ func main() {
 		ctx := r.Context()
 		ctx.Done()
 		w.WriteHeader(http.StatusInternalServerError)
-		//time.Sleep(time.Second * 2)
-		//fmt.Fprint(w, "Hello, playground")
+		time.Sleep(time.Second * 2)
+		fmt.Fprint(w, "Hello, playground")
 	})
 
 	log.Println("Starting server...")
@@ -37,6 +38,6 @@ func main() {
 	}
 	cli := http.Client{}
 	resp, err := cli.Do(req)
-	log.Println(err)
+	log.Println(err, "err")
 	log.Println(resp)
 }
