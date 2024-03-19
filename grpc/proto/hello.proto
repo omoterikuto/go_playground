@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package hello;
+option go_package = "pkg/grpc";
+
+service HelloService {
+  rpc Hello (HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+  Count count = 1;
+}
+
+message HelloResponse {
+  Count count = 1;
+}
+
+enum Count {
+  ZERO = 0;
+  ONE2 = 1;
+  TWO = 2;
+}
+
