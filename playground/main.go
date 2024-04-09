@@ -1,8 +1,10 @@
 package main
 
-func main() {
+import "fmt"
 
-}
-func sampleFuncGenerics1[T comparable](x T) T {
-	return x
+func main() {
+	hoge := map[int64]bool{
+		1: true,
+	}
+	fmt.Println(hoge[1])
 }
