@@ -1,8 +1,8 @@
 syntax = "proto3";
 package post;
 
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
+import "util.proto";
 
 service PostService {
   rpc Get(GetRequest) returns (GetResponse) {}
@@ -29,7 +29,10 @@ message GetRequest { string postId = 1; }
 
 message GetResponse { Post post = 1; }
 
-message GetTimelineRequest { string userId = 1; }
+message GetTimelineRequest {
+  string userId = 1;
+  util.Pagination pagination = 2;
+}
 
 message GetTimelineResponse { repeated Post posts = 1; }
 
