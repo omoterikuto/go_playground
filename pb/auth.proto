@@ -1,0 +1,19 @@
+syntax = "proto3";
+package auth;
+
+import "google/protobuf/empty.proto";
+import "util.proto";
+
+service AuthService {
+  rpc EmailVerification(EmailVerificationRequest) returns (google.protobuf.Empty) {}
+  rpc RegisterPassword(RegisterPasswordRequest) returns (google.protobuf.Empty) {}
+}
+
+message EmailVerificationRequest {
+  string email = 1;
+}
+
+message RegisterPasswordRequest {
+  string email = 1;
+  string token = 2;
+}
