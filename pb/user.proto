@@ -1,8 +1,8 @@
 syntax = "proto3";
 package user;
 
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
+import "util.proto";
 
 service UserService {
   rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {}
@@ -20,13 +20,9 @@ message Profile {
   string profile = 4;
 }
 
-message GetProfileRequest {
-  string userId = 1;
-}
+message GetProfileRequest { string userId = 1; }
 
-message GetProfileResponse {
-  Profile profile = 1;
-}
+message GetProfileResponse { Profile profile = 1; }
 
 message UpdateProfileRequest {
   string userId = 1;
@@ -38,11 +34,13 @@ message UpdateProfileRequest {
 message ListFollowerRequest {
   string userId = 1;
   repeated Profile follower = 2;
+  util.Pagination pagination = 3;
 }
 
 message ListFolloweeRequest {
   string userId = 1;
   repeated Profile followee = 2;
+  util.Pagination pagination = 3;
 }
 
 message FollowRequest {
@@ -52,5 +50,5 @@ message FollowRequest {
 
 message UnfollowRequest {
   string userId = 1;
-  string followUserId =2;
+  string followUserId = 2;
 }
