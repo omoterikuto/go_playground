@@ -1,0 +1,72 @@
+syntax = "proto3";
+package post;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service PostService {
+  rpc Get(GetRequest) returns (GetResponse) {}
+  rpc GetTimeline(GetTimelineRequest) returns (stream GetTimelineRequest) {}
+  rpc Delete(DeleteRequest) returns (google.protobuf.Empty) {}
+  rpc Create(CreateRequest) returns (google.protobuf.Empty) {}
+  rpc Like(LikeRequest) returns (google.protobuf.Empty) {}
+  rpc Unlike(UnlikeRequest) returns (google.protobuf.Empty) {}
+  rpc Repost(RepostRequest) returns (google.protobuf.Empty) {}
+  rpc Unrepost(UnrepostRequest) returns (google.protobuf.Empty) {}
+}
+
+message Post {
+  string postId = 1;
+  string userName = 2;
+  string iconImageURL = 3;
+  string body = 4;
+  repeated string imageURLs = 5;
+  int32 likes_count = 6;
+  int32 repost_count = 7;
+}
+
+message GetRequest {
+  string postId = 1;
+}
+
+message GetResponse {
+  Post post = 1;
+}
+
+message GetTimelineRequest {
+  string userId = 1;
+}
+
+message GetTimelineResponse {
+  repeated Post posts = 1;
+}
+
+message DeleteRequest {
+  string postId = 1;
+}
+
+message CreateRequest {
+  string userId = 1;
+  string body = 2;
+  repeated string imageURLs = 3;
+}
+
+message LikeRequest {
+  string userId = 1;
+  string postId =2;
+}
+
+message UnlikeRequest {
+  string userId = 1;
+  string postId =2;
+}
+
+message RepostRequest {
+  string userId = 1;
+  string postId =2;
+}
+
+message UnrepostRequest {
+  string userId = 1;
+  string postId =2;
+}

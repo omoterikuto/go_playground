@@ -1,0 +1,56 @@
+syntax = "proto3";
+package user;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service UserService {
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {}
+  rpc UpdateProfile(UpdateProfileRequest) returns (google.protobuf.Empty) {}
+  rpc ListFollower(ListFollowerRequest) returns (google.protobuf.Empty) {}
+  rpc ListFollowee(ListFolloweeRequest) returns (google.protobuf.Empty) {}
+  rpc Follow(FollowRequest) returns (google.protobuf.Empty) {}
+  rpc Unfollow(UnfollowRequest) returns (google.protobuf.Empty) {}
+}
+
+message Profile {
+  string userId = 1;
+  string name = 2;
+  string iconImageURL = 3;
+  string profile = 4;
+}
+
+message GetProfileRequest {
+  string userId = 1;
+}
+
+message GetProfileResponse {
+  Profile profile = 1;
+}
+
+message UpdateProfileRequest {
+  string userId = 1;
+  string name = 2;
+  string iconImageURL = 3;
+  string profile = 4;
+}
+
+message ListFollowerRequest {
+  string userId = 1;
+  repeated Profile follower = 2;
+}
+
+message ListFolloweeRequest {
+  string userId = 1;
+  repeated Profile followee = 2;
+}
+
+message FollowRequest {
+  string userId = 1;
+  string followUserId = 2;
+}
+
+message UnfollowRequest {
+  string userId = 1;
+  string followUserId =2;
+}

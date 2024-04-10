@@ -1,0 +1,13 @@
+syntax = "proto3";
+package image;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service ImageService {
+  rpc GetPreSignedURL(google.protobuf.Empty) returns (GetPreSignedURLResponse) {}
+}
+
+message GetPreSignedURLResponse {
+  string uploadURL = 1;
+}

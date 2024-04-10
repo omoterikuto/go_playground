@@ -1,10 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	hoge := map[int64]bool{
-		1: true,
+	for _, v := range []int{1, 2, 3} {
+		go func() {
+			//fmt.Println(v)
+			fmt.Println(&v)
+		}()
 	}
-	fmt.Println(hoge[1])
+	// ちょっと待つ
+	time.Sleep(1 * time.Second)
 }
