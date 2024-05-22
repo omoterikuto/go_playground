@@ -1,17 +1,16 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
 
 func main() {
-	for _, v := range []int{1, 2, 3} {
-		go func() {
-			//fmt.Println(v)
-			fmt.Println(&v)
-		}()
+	userId := []string{"1", "2", "3", "4"}
+	i := 0
+	for _, id := range userId {
+		fmt.Println(id)
+		i += 1
+		if i == 2 {
+			fmt.Println("hoge")
+			userId = userId[i:]
+		}
 	}
-	// ちょっと待つ
-	time.Sleep(1 * time.Second)
 }
