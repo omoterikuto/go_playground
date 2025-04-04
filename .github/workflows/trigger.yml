@@ -8,7 +8,7 @@ on:
 jobs:
   trigger_workflow:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'test'
+    if: contains(github.event.pull_request.labels.*.name, 'test')
     steps:
       - name: print
         run: |
