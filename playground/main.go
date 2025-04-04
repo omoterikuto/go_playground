@@ -1,10 +1,9 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
 
 func main() {
-	fmt.Println(time.ParseInLocation("20060102", "", time.UTC))
+	for j := range 3 {
+		fmt.Println(j)
+	}
 }
