@@ -1,0 +1,13 @@
+name: release_workflow
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: release
+        run: |
+          echo "release"

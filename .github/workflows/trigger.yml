@@ -12,10 +12,6 @@ jobs:
       - name: print
         run: |
           echo "${{github.event.pull_request.labels.*.name}}"
-  trigger_workflow:
-    runs-on: ubuntu-latest
+  call-workflow:
     if: contains(github.event.pull_request.labels.*.name, 'test')
-    steps:
-      - name: print
-        run: |
-          echo "test"
+    uses: ./.github/workflows/release.yml
