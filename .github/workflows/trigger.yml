@@ -6,6 +6,12 @@ on:
       - closed
 
 jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print
+        run: |
+          echo "${{contains(github.event.pull_request.labels.*.name, 'test')}}"
   trigger_workflow:
     runs-on: ubuntu-latest
     if: contains(github.event.pull_request.labels.*.name, 'test')
