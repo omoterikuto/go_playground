@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: print
         run: |
-          echo "${{github.event.pull_request.labels.*.name}}"
+          echo "${{github.event.pull_request.labels.*.name[0]}}"
   call-workflow:
     if: contains(github.event.pull_request.labels.*.name, 'test')
     uses: ./.github/workflows/release.yml
