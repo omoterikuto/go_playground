@@ -1,0 +1,15 @@
+name: trigger_workflow
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  trigger_workflow:
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'test'
+    steps:
+      - name: print
+        run: |
+          echo "test"
