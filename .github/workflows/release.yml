@@ -10,4 +10,4 @@ jobs:
     steps:
       - name: release
         run: |
-          echo "release"
+          echo "{{var.hoge}}"
