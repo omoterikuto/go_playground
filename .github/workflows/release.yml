@@ -2,12 +2,23 @@ name: release_workflow
 
 on:
   workflow_call:
+    inputs:
+      hoge:
+        description: 'hoge'
+        type: string
+        required: true
+        default: ${{ vars.hoge }}
   workflow_dispatch:
-
+    inputs:
+      hoge:
+        description: 'hoge'
+        type: string
+        required: true
+        default: ${{ vars.hoge }}
 jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
       - name: release
         run: |
-          echo "${{var.hoge}}"
+          echo "${{inputs.hoge}}"
