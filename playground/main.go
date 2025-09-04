@@ -3,7 +3,6 @@ package main
 import "fmt"
 
 func main() {
-	for j := range 3 {
-		fmt.Println(j)
-	}
+	hoges := make([]string, 0, 10000)
+	fmt.Println(hoges)
 }
